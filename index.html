@@ -18,35 +18,155 @@
 		
 		<!--data-state="someState"-->
 		
+		<h3 class="logo">hydna</h3>
+		
 		<div id="reveal">
 		    <div class="slides">
 				<section>
-					hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="#">languages</a>.
+					<h2>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/client-libraries/">languages</a>. It works well in all major <a href="https://www.hydna.com/features/">browsers</a>, mobile apps, desktop apps, and on the server-side</a>.</h2>
+					
+					
+					<p>If you like you can control this slideshow with your phone, visit this page with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
+					
+					<p class="secret-code"><span>43525</span></p>
+					
+					<p class="note">slideshow code courtesy <a href="#">reveal.js</a></p>
+					
+					<p class="footer">
+						<!--<span class="prev">Prev</span>
+						<span class="down">Some more examples</span>-->
+						<span class="next">A small example</span>
+					</p>
+					
 				</section>
 		        <section>
-		        	
-					 if you like you can control this slideshow with your phone
+		        	<section>
+					<h2>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.com/forum/">chat</a> or a browser-based <a href="http://hydna.github.com/tartarus/">multiplayer-game</a>.</h2>
+				   	<h3>A small javascript example:</h3>
+				
+					<div class="code highlight">
+ 					    <pre>
+<span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
+<span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/3617890511&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
+
+<span class="c1">// register an event handler that alerts the data-part of messages when</span>
+<span class="c1">// they are received.</span>
+<span class="nx">channel</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// send a message immediately when the channel has been opened.</span>
+<span class="nx">channel</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">channel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello there!&#39;</span><span class="p">);</span>
+<span class="p">};</span></pre>   
+					</div>
+				
+					<p class="footer">
+						<span class="prev">Introduction</span>
+						<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="#">Push API</a> examples</span>
+						<span class="next">Terminology</span>
+					</p>
+				    </section>
+					<section>
+						
+						<p class="header">
+							<span class="up"><strong>Javascript</strong> example</span>
+						</p>
+						
+	   
+						<h3>Python push example: <a href="https://github.com/hydna/hydna-python">https://github.com/hydna/hydna-python</a></h3>
+
+						<div class="code highlight">
+	 					    <pre><span class="kn">import</span> <span class="nn">hydna</span>
+
+<span class="c1"># send a message</span>
+<span class="n">hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+
+<span class="c1"># emit a signal</span>
+<span class="n">hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
+						</div>
+						
+						<h3>Ruby push example: <a href="https://github.com/hydna/hydna-ruby">https://github.com/hydna/hydna-ruby</a></h3>
+
+						<div class="code highlight">
+	 					    <pre><span class="kn">require</span> &#39;hydna&#39;
+
+<span class="c1"># send a message</span>
+<span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+
+<span class="c1"># emit a signal</span>
+<span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
+						</div>
+	
+						
+						<p class="footer">
+							<!--<span class="prev">Prev</span>-->
+							<span class="down"><strong>PHP</strong> <a href="#">Push API</a> example</span>
+		 
+						</p>
+						
+					</section>
 					
-					 <p>Enter the following code on your phone to start the control</p>
-					
-						<p>43525</p>
-					
-					 <p>slideshow code courtesy reveal.js</p>
+					<section>
+						
+						<p class="header">
+							<span class="up"><strong>Python</strong>, <strong>Ruby</strong> <a href="#">Push API</a> examples</span>
+						</p>
+						
+					   	<h3>PHP push example: <a href="https://github.com/hydna/hydna-php">https://github.com/hydna/hydna-php</a></h3>
+						<div class="code highlight">
+	    					<pre>require("hydna-push.php");
+$hydna = new Hydna(); 
+
+// send a message
+$hydna->push("http://public.hydna.net/1122556828", "Hello World from PHP");
+
+// emit a signal
+$hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP");</pre>   
+</div>  				
+					</section>
 		
 		        </section>
 		        <section>
-		            <section>Vertical Slide 1</section>
-		            <section>Vertical Slide 2</section>
+  					 <h2>A few terms you should familiarize yourself with, to featherbed further venturing:</h2>
+					
+					 <ul>
+
+						<li>When you sign up for a plan, you receive what is referred to as a <em>domain</em>. Domains are regular, fully qualified domain names, that are used to identify your own isolated instance(s) within Hydna.</li>
+							
+						<li>To send or receive messages over Hydna you open a channel on your domain. Each <em>channel</em> is identified by an integer in the range <em>1 - 4294967295</em>. You can think of channels much like their radio counterparts: programs transmitted on a channel are received by listeners tuned in to the same channel.</li>
+						
+						<li>There are four different actions you can perform on a channel: <em>open</em>, <em>close</em>, send <em>message</em> and <em>emit</em> signal. You will receive events (or equivalent) when: messages or signals arrive, errors occur, and when a channel is closed.</li>
+						
+						<!--<li>Channels are opened in different modes depending on what you intend to do (read and/or write for example).</li>-->
+					 </li>
+					 </ul>
+						<p class="footer">
+							<span class="prev">A small example</span>
+							<span class="next">Behaviours</span>
+		 
+						</p>
+					
 		        </section>
 		
 				<section>
-		            <section>Vertical Slide 1</section>
-		            <section>Vertical Slide 2</section>
+					<h2>Behaviors enable you to deploy custom logic to sand boxed environments hosted on Hydna's servers.</h2>
+					
+		            <p>Behaviors are used to instruct Hydna how to behave when actions (e.g. open requests, signals, client disconnects) are performed. It is also possible to "pipe" actions to scripts, giving you access to the power of a real programming environment.</p>
+		            
+					<p>The concept is described in it's entirety in the section <a href="https://www.hydna.com/documentation/behaviors/">Behaviors</a>.</p>
+		
 		        </section>
 		
 				<section>
-		            <section>Vertical Slide 1</section>
-		            <section>Vertical Slide 2</section>
+                    
+					<h2>Check out some of our demo applications below and then get yourself a <a href="https://www.hydna.com/account/signup/">free account and start playing around</a></h2>
+					
+					
+					<h3>Demo applications: <a href="https://www.hydna.com/demos/">https://www.hydna.com/demos/</a></h3>
+					
+					<h3>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></h3>
+					
 		        </section>
 		    </div>
 		
@@ -67,31 +187,19 @@
 		<script>
 			
 			Reveal.initialize({
-			    // Display controls in the bottom right corner
 			    controls: true,
-
-			    // Display a presentation progress bar
 			    progress: true,
-
-			    // If true; each slide will be pushed to the browser history
 			    history: true,
-
-			    // Flags if mouse wheel navigation should be enabled
 			    mouseWheel: true,
-
-			    // Apply a 3D roll to links on hover
 			    rollingLinks: true,
-
-			    // UI style
-			    theme: 'default', // default/neon
-
-			    // Transition style
-			    transition: 'default' // default/cube/page/concave/linear(2d)
+			    theme: 'default',
+			    transition: 'default'
 			});
 
 
 			document.addEventListener( 'someState', function() {
 			    // TODO: Sprinkle magic
+				console.log("state...");
 			}, false );
 			
 			
@@ -101,14 +209,18 @@
 			
 			var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
 			channel.onmessage = function(e) {
+				
+				console.log( "message received" );
 			    
-				if( parseInt(e.data) == channel ){
+				if( parseInt(e.data) == mychannel ){
 					
 					if( !synced ){
 						synced = true;
+						console.log( "synced!" );
 					}
 					
 				}else{
+					
 				   	switch( e.data ){
 						case "left":
 							Reveal.navigateLeft();
@@ -131,10 +243,17 @@
 					   	break;
 					} 
 				}
-			
 			};
+			
 			channel.onopen = function(e) {
-				//channel.send("Hello world!");
+				
+				console.log("connected");
+				
+				setTimeout( function(){
+					channel.send(String(mychannel));
+					channel.send("right");
+				}, 400 );
+				
 			}; 
 
 		</script>	
