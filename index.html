@@ -3,6 +3,12 @@
 	
 	<head>
 	  <meta charset="utf-8">
+	
+	<meta name="apple-mobile-web-app-capable"
+	      content="yes" />
+	
+		<meta name="viewport"
+		    content="user-scalable=no, width=device-width" />
 
 	  <title>Remote control demo</title>
 
@@ -181,18 +187,11 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 		<script src="script/deps/reveal.js"></script>
 
 		<script>
-		
-		if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){
-			
-			alert("we are on cellphone");
 			
 			
-			
-			
-		}
-			
-			
-			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){
+			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){           
+				$('body').addClass( "mobile" );
+				// mobile interface stuff
 				
 			}else{
 			
