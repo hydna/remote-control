@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 	<html>
+	
+	<head>
 	  <meta charset="utf-8">
 
 	  <title>Remote control demo</title>
@@ -28,13 +30,11 @@
 					
 					<p>If you like you can control this slideshow with your phone, visit this page with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
 					
-					<p class="secret-code"><span>43525</span></p>
+					<p class="secret-code"><span id="secret_id">43525</span></p>
 					
 					<p class="note">slideshow code courtesy <a href="#">reveal.js</a></p>
 					
 					<p class="footer">
-						<!--<span class="prev">Prev</span>
-						<span class="down">Some more examples</span>-->
 						<span class="next">A small example</span>
 					</p>
 					
@@ -72,8 +72,7 @@
 						<p class="header">
 							<span class="up"><strong>Javascript</strong> example</span>
 						</p>
-						
-	   
+
 						<h3>Python push example: <a href="https://github.com/hydna/hydna-python">https://github.com/hydna/hydna-python</a></h3>
 
 						<div class="code highlight">
@@ -97,12 +96,9 @@
 <span class="c1"># emit a signal</span>
 <span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
 						</div>
-	
 						
 						<p class="footer">
-							<!--<span class="prev">Prev</span>-->
 							<span class="down"><strong>PHP</strong> <a href="#">Push API</a> example</span>
-		 
 						</p>
 						
 					</section>
@@ -185,76 +181,95 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 		<script src="script/deps/reveal.js"></script>
 
 		<script>
+		
+		if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){
 			
-			Reveal.initialize({
-			    controls: true,
-			    progress: true,
-			    history: true,
-			    mouseWheel: true,
-			    rollingLinks: true,
-			    theme: 'default',
-			    transition: 'default'
-			});
-
-
-			document.addEventListener( 'someState', function() {
-			    // TODO: Sprinkle magic
-				console.log("state...");
-			}, false );
+			alert("we are on cellphone");
 			
 			
-			var mychannel = Math.round(Math.random() * 10000);
 			
-			var synced = false;
 			
-			var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
-			channel.onmessage = function(e) {
+		}
+			
+			
+			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){
 				
-				console.log( "message received" );
+			}else{
+			
+				Reveal.initialize({
+				    controls: true,
+				    progress: true,
+				    history: true,
+				    mouseWheel: true,
+				    rollingLinks: true,
+				    theme: 'default',
+				    transition: 'default'
+				});
+
+
+				document.addEventListener( 'someState', function() {
+				    // TODO: Sprinkle magic
+					console.log("state...");
+				}, false );
+			
+			
+				var mychannel = Math.round(Math.random() * 10000);
+			
+				$("#secret_id").html( mychannel );
+			
+				var synced = false;
+			
+				var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
+				channel.onmessage = function(e) {
+				
+					console.log( "message received" );
 			    
-				if( parseInt(e.data) == mychannel ){
+					if( parseInt(e.data) == mychannel ){
 					
-					if( !synced ){
-						synced = true;
-						console.log( "synced!" );
+						if( !synced ){
+							synced = true;
+							console.log( "synced!" );
+						}
+					
+					}else{
+					
+						if( synced ){
+						   	switch( e.data ){
+								case "left":
+									Reveal.navigateLeft();
+								break;
+								case "right":
+									Reveal.navigateRight();
+								break;
+								case "up":
+									Reveal.navigateUp();
+								break;
+								case "down":
+									Reveal.navigateDown();
+								break;
+								case "reset":
+								    Reveal.navigateTo(0,0);
+							   	break;
+							}
+						} 
 					}
-					
-				}else{
-					
-				   	switch( e.data ){
-						case "left":
-							Reveal.navigateLeft();
-						break;
-						
-						case "right":
-							Reveal.navigateRight();
-						break;
-						
-						case "up":
-							Reveal.navigateUp();
-						break;
-						
-						case "down":
-							Reveal.navigateDown();
-						break;
-						
-						case "reset":
-						    Reveal.navigateTo(0,0);
-					   	break;
-					} 
-				}
-			};
+				};
 			
-			channel.onopen = function(e) {
+				channel.onopen = function(e) {
 				
-				console.log("connected");
+					console.log("connected");
 				
-				setTimeout( function(){
-					channel.send(String(mychannel));
-					channel.send("right");
-				}, 400 );
+					setTimeout( function(){
+						channel.send(String(mychannel));
+						//channel.send("right");
+					}, 400 );
 				
-			}; 
+				};
+			
+			
+			}
+			
+			console.log( window.navigator.userAgent );
 
 		</script>	
 	</body>	
