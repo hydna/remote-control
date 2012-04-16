@@ -1,26 +1,23 @@
 <!DOCTYPE HTML>
 	<html>
-	
 	<head>
-	  <meta charset="utf-8">
+		
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	
-	<meta name="apple-mobile-web-app-capable"
-	      content="yes" />
+	<meta name="viewport" content="user-scalable=no, width=device-width" />
 	
-		<meta name="viewport"
-		    content="user-scalable=no, width=device-width" />
+	<title>Remote control demo</title>
 
-	  <title>Remote control demo</title>
-
-	  <link rel="stylesheet" href="style/master.css">
+	<link rel="stylesheet" href="style/master.css">
 	
 	<!--<script type="text/javascript" src="http://use.typekit.com/rcl8zhz.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
 	<script type="text/javascript" src="http://cdn.hydna.com/1/hydna.js"></script>
 	<script src="script/deps/jquery.min.js" type="text/javascript"></script>
+	<script src="script/deps/jgestures.min.js" type="text/javascript"></script>
 	
 	</head>
-	
 	
 	<body>
 		
@@ -41,7 +38,7 @@
 					<p class="note">slideshow code courtesy <a href="#">reveal.js</a></p>
 					
 					<p class="footer">
-						<span class="next">A small example</span>
+						<!--<span class="next">A small example</span>-->
 					</p>
 					
 				</section>
@@ -68,11 +65,43 @@
 					</div>
 				
 					<p class="footer">
-						<span class="prev">Introduction</span>
-						<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="#">Push API</a> examples</span>
-						<span class="next">Terminology</span>
+						<!--<span class="prev">Introduction</span>-->
+						<span class="down">Hydna Push API</a> examples</span>
+						<!--<span class="next">Terminology</span>-->
 					</p>
-				    </section>
+					</section>
+					<section>
+						
+						<p class="header">
+							<span class="up"><strong>Javascript</strong> example</span>
+						</p>
+						
+						<h2>The Push API allows you to send messages and emit signals to channels without using a client library. It can also be used to build simple client libraries when you do not need the entire Hydna feature-set.</h2>
+
+						<h3>Push API: <a href="https://www.hydna.com/documentation/client-libraries/push/">https://www.hydna.com/documentation/client-libraries/push/</a></h3>
+						
+						<h4>Send message:</h4>
+						<div class="code highlight">
+
+<pre>
+curl --data "Hello World" http://public.hydna.net/1122556827/
+</pre>   
+						</div>
+						
+						<h4>Emit signal:</h4>
+						<div class="code highlight">
+							
+<pre>
+curl -H "X-Emit: yes" --data "Hello World" http://public.hydna.net/1122556827/</pre>   
+						</div>
+						
+						<p class="footer">
+							<!--<span class="prev">Introduction</span>-->
+							<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="#">Push API</a> examples</span>
+							<!--<span class="next">Terminology</span>-->
+						</p>
+						
+					</section>
 					<section>
 						
 						<p class="header">
@@ -140,21 +169,33 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 						
 						<li>There are four different actions you can perform on a channel: <em>open</em>, <em>close</em>, send <em>message</em> and <em>emit</em> signal. You will receive events (or equivalent) when: messages or signals arrive, errors occur, and when a channel is closed.</li>
 						
-						<!--<li>Channels are opened in different modes depending on what you intend to do (read and/or write for example).</li>-->
+						<li>Channels are opened in different modes depending on what you intend to do (read and/or write for example).</li>
 					 </li>
 					 </ul>
 						<p class="footer">
-							<span class="prev">A small example</span>
-							<span class="next">Behaviours</span>
+							<!--<span class="prev">A small example</span>
+							<span class="next">Behaviours</span>-->
 		 
 						</p>
 					
 		        </section>
 		
 				<section>
-					<h2>Behaviors enable you to deploy custom logic to sand boxed environments hosted on Hydna's servers.</h2>
+					<h2><a href="https://www.hydna.com/documentation/behaviors/introduction/">Behaviors</a> enable you to deploy custom logic to sand boxed environments hosted on Hydna's servers.</h2>
 					
 		            <p>Behaviors are used to instruct Hydna how to behave when actions (e.g. open requests, signals, client disconnects) are performed. It is also possible to "pipe" actions to scripts, giving you access to the power of a real programming environment.</p>
+		
+					<h3>Behaviors enable you to, among other things:</h3>
+
+					<ul class="compact">
+						<li>Write advanced routing schemes</li>
+						<li>Authenticate connecting clients</li>
+						<li>Disconnect connected clients</li>
+						<li>Create arbitrary server-side logic</li>
+						<li>Dispatch signals (events)</li>
+						<li>Store state/session/connection data</li>
+						<li>Connect to external services</li>
+					</ul>
 		            
 					<p>The concept is described in it's entirety in the section <a href="https://www.hydna.com/documentation/behaviors/">Behaviors</a>.</p>
 		
@@ -168,6 +209,9 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 					<h3>Demo applications: <a href="https://www.hydna.com/demos/">https://www.hydna.com/demos/</a></h3>
 					
 					<h3>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></h3>
+					
+					<h3>Tutorials: <a href="https://www.hydna.com/documentation/tutorials/tutorials/">https://www.hydna.com/documentation/tutorials/tutorials/</a></h3>
+					
 					
 		        </section>
 		    </div>
@@ -190,7 +234,43 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 			
 			
 			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){           
+				
 				$('body').addClass( "mobile" );
+				
+				var code = prompt("Enter slideshow code", "");
+				
+				if( code ){
+					
+					var mychannel = code;
+
+					var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'w');
+					channel.onmessage = function(e) {
+					}
+					
+					channel.onopen = function(e){
+						channel.send( mychannel );
+					}
+					
+					
+				}
+				
+				$('body').bind('swipeleft',function(e){
+					e.preventDefault();
+					
+					console.log("left");
+					
+					channel.send( "right" );
+				});
+				
+				$('body').bind('swiperight',function(e){
+					e.preventDefault();
+					
+					console.log("right");
+					
+					channel.send( "left" );
+				});
+				
+				
 				// mobile interface stuff
 				
 			}else{
@@ -228,6 +308,7 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 						if( !synced ){
 							synced = true;
 							console.log( "synced!" );
+							alert("synced");
 						}
 					
 					}else{
@@ -259,7 +340,7 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 					console.log("connected");
 				
 					setTimeout( function(){
-						channel.send(String(mychannel));
+						//channel.send(String(mychannel));
 						//channel.send("right");
 					}, 400 );
 				
@@ -267,8 +348,6 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 			
 			
 			}
-			
-			console.log( window.navigator.userAgent );
 
 		</script>	
 	</body>	

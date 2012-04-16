@@ -130,8 +130,8 @@ html {
 	line-height: 1.2em;
 	font-weight: normal;
 	
-	border: 1px solid #2c2c2c;
-	border: none;
+	border: 1px solid #ccc;
+    border: none;
 }
 
 #reveal strong, 
@@ -945,9 +945,9 @@ html {
  *********************************************/
  
 #reveal h1 { font-size: 24px; line-height: 30px;	}
-#reveal h2 { font-size: 24px; line-height: 30px; padding: 30px;   }
+#reveal h2 { font-size: 24px; line-height: 32px; padding: 0 30px 20px 30px;   }
 #reveal h3 { font-size: 18px; font-family: helvetica, arial, sans-serif; margin: 5px 0 15px 0; line-height: 30px;  }
-#reveal h4 { font-size: 16px;	}
+#reveal h4 { font-size: 16px; padding: 0 0 10px 0;	}
 
 h3.logo{
     margin: 0;
@@ -1081,12 +1081,21 @@ em{
 }
 
 ul{
-    text-align: left;
+    list-style-type:circle;
     display: block;
 }
 
 ul li{
-    display: block;
+    text-align: left;
+    list-style-position:inside;
     padding: 0 30px 30px 30px;
-	list-style-position: normal;
+}
+
+.compact{
+    width: 600px;
+    padding: 15px;
+}
+
+.compact li{
+    padding: 0 0 10px 0;
 }
