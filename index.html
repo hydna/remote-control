@@ -14,8 +14,7 @@
 	<!--<script type="text/javascript" src="http://use.typekit.com/rcl8zhz.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
 	<script type="text/javascript" src="http://cdn.hydna.com/1/hydna.js"></script>
-	<script src="script/deps/jquery.min.js" type="text/javascript"></script>
-	<script src="script/deps/jgestures.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="script/deps/jquery-1.7.2.min.js"></script>
 	
 	</head>
 	
@@ -66,7 +65,7 @@
 				
 					<p class="footer">
 						<!--<span class="prev">Introduction</span>-->
-						<span class="down">Hydna Push API</a> examples</span>
+						<span class="down">Hydna <strong>Push API</strong></a> examples</span>
 						<!--<span class="next">Terminology</span>-->
 					</p>
 					</section>
@@ -165,7 +164,7 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 
 						<li>When you sign up for a plan, you receive what is referred to as a <em>domain</em>. Domains are regular, fully qualified domain names, that are used to identify your own isolated instance(s) within Hydna.</li>
 							
-						<li>To send or receive messages over Hydna you open a channel on your domain. Each <em>channel</em> is identified by an integer in the range <em>1 - 4294967295</em>. You can think of channels much like their radio counterparts: programs transmitted on a channel are received by listeners tuned in to the same channel.</li>
+						<li>To send or receive messages over Hydna you open a channel on your domain. Each <em>channel</em> is identified by an integer in the range <em>1 - 4294967295</em>. You can think of channels much like their radio counterparts: programs transmitted on a channel are received by listeners tuned in to the same channel. Channels are cheap you can open several thousand on each client!</li>
 						
 						<li>There are four different actions you can perform on a channel: <em>open</em>, <em>close</em>, send <em>message</em> and <em>emit</em> signal. You will receive events (or equivalent) when: messages or signals arrive, errors occur, and when a channel is closed.</li>
 						
@@ -229,126 +228,205 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 		</div>
 		
 		<script src="script/deps/reveal.js"></script>
-
 		<script>
 			
-			
-			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('android') != -1 ){           
+			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1 ){           
 				
 				$('body').addClass( "mobile" );
 				
-				var code = prompt("Enter slideshow code", "");
+				$('body').append("<div class='info'><span id='swipe_id'>Swipe to change slide</span><a href='#' id='reconnect_id'>Tap to Connect</a><span style='display: none;' id='loader_id' class='loader'></span></div>");
 				
-				if( code ){
-					
-					var mychannel = code;
-
-					var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'w');
-					channel.onmessage = function(e) {
-					}
-					
-					channel.onopen = function(e){
-						channel.send( mychannel );
-					}
-					
-					
-				}
+				$('#swipe_id').hide();
 				
-				$('body').bind('swipeleft',function(e){
+				var channel = null;
+				var promptconnect = function(){
+					
+					var code = parseInt(prompt("Enter slideshow code", ""));
+					
+					if( !isNaN(code) && code > 1 ){
+						
+						var mychannel = String(code);
+						
+						$('#loader_id').show();
+						$('#reconnect_id').hide();
+						
+						channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
+						channel.onmessage = function(e) {
+							
+							switch( e.data ){
+								case "synced":
+								
+								$('#reconnect_id').hide();
+								$('#swipe_id').show();
+								$('#loader_id').hide();
+								
+								break;
+							}
+							
+						}
+						
+						channel.onopen = function(e){
+							channel.send( mychannel );
+						}
+						
+						channel.onclose = function(e){
+							
+							$('#reconnect_id').show();
+							$('#swipe_id').hide();
+							
+							channel = null;
+							
+							promptconnect();
+						}
+						
+					}else{
+						if( code != "" ){
+							alert("Invalid channel");
+						}
+					}
+				};
+				
+				$('#reconnect_id').bind('touchend', function(e){
 					e.preventDefault();
+					e.stopPropagation();
 					
-					console.log("left");
+					promptconnect();
+				})
+				
+				var startx = 0;
+				var starty = 0;
+				var currentx = 0;
+				var currenty = 0;
+				
+				$("body").bind("touchmove", function (event) {
+					var e = event.originalEvent;
 					
-					channel.send( "right" );
+					if( e.targetTouches[0] ){
+						currentx = e.targetTouches[0].pageX;
+						currenty = e.targetTouches[0].pageY;
+					}
+				
+					e.preventDefault();
 				});
 				
-				$('body').bind('swiperight',function(e){
-					e.preventDefault();
+				$("body").bind("touchend", function (event) {
 					
-					console.log("right");
+					if( startx != currentx || starty != currenty ){
+						
+						// ok we didn't just tap
+						if( channel != null ){ 
+							
+							var dx = startx - currentx;
+							var dy = starty - currenty;
+						
+							var angle = Math.atan2( dx, dy ) * (180/Math.PI);
+						
+							if( angle < 0 ){
+							
+								if( angle > -45 ){
+									channel.send("down");
+								}else if( angle < -135 ){
+									channel.send("up");
+								}else{
+									channel.send("left");
+								}
+							
+							}else{
+							
+								if( angle < 45 ){
+									channel.send("down");
+								}else if( angle > 135 ){
+									channel.send("up");
+								}else{
+									channel.send("right");
+								}
+							}
+						}   
+					}
 					
-					channel.send( "left" );
 				});
 				
+				$("body").bind("touchstart", function (event) { 
+					
+					var e = event.originalEvent;
+					if( e.targetTouches[0] ){
+						startx = e.targetTouches[0].pageX;
+						starty = e.targetTouches[0].pageY;
+						currentx = startx;
+						currenty = starty;
+					}
+					
+					e.preventDefault();
+				});
 				
-				// mobile interface stuff
+				promptconnect();
 				
 			}else{
-			
+				
 				Reveal.initialize({
-				    controls: true,
-				    progress: true,
-				    history: true,
-				    mouseWheel: true,
-				    rollingLinks: true,
-				    theme: 'default',
-				    transition: 'default'
+					controls: true,
+					progress: true,
+					history: true,
+					mouseWheel: true,
+					rollingLinks: true,
+					theme: 'default',
+					transition: 'default'
 				});
-
-
+				
 				document.addEventListener( 'someState', function() {
 				    // TODO: Sprinkle magic
-					console.log("state...");
+					//console.log("state...");
 				}, false );
 			
 			
 				var mychannel = Math.round(Math.random() * 10000);
+				var channel = null;
 			
 				$("#secret_id").html( mychannel );
-			
-				var synced = false;
-			
-				var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
-				channel.onmessage = function(e) {
 				
-					console.log( "message received" );
-			    
-					if( parseInt(e.data) == mychannel ){
+				var synced = false; 
+				var connect = function(){
 					
-						if( !synced ){
-							synced = true;
-							console.log( "synced!" );
-							alert("synced");
+					var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
+					channel.onmessage = function(e) {
+						
+						if( parseInt(e.data) == mychannel ){
+							
+							synced = true;	
+							channel.send("synced");
+							
+						}else{
+							
+							if( synced ){
+							   	switch( e.data ){
+									case "left":
+										Reveal.navigateLeft();
+									break;
+									case "right":
+										Reveal.navigateRight();
+									break;
+									case "up":
+										Reveal.navigateUp();
+									break;
+									case "down":
+										Reveal.navigateDown();
+									break;
+									case "reset":
+									    Reveal.navigateTo(0,0);
+								   	break;
+								}
+							} 
 						}
-					
-					}else{
-					
-						if( synced ){
-						   	switch( e.data ){
-								case "left":
-									Reveal.navigateLeft();
-								break;
-								case "right":
-									Reveal.navigateRight();
-								break;
-								case "up":
-									Reveal.navigateUp();
-								break;
-								case "down":
-									Reveal.navigateDown();
-								break;
-								case "reset":
-								    Reveal.navigateTo(0,0);
-							   	break;
-							}
-						} 
 					}
-				};
-			
-				channel.onopen = function(e) {
+					
+					channel.onclose = function(e){
+						// reconnect
+					}
+				}
 				
-					console.log("connected");
-				
-					setTimeout( function(){
-						//channel.send(String(mychannel));
-						//channel.send("right");
-					}, 400 );
-				
-				};
-			
-			
+				connect();
 			}
-
+			
 		</script>	
 	</body>	
 </html>
