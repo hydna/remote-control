@@ -81,23 +81,17 @@
 						
 						<h4>Send message:</h4>
 						<div class="code highlight">
-
-<pre>
-curl --data "Hello World" http://public.hydna.net/1122556827/
-</pre>   
+							<pre>curl --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/1122556827/</pre>   
 						</div>
 						
 						<h4>Emit signal:</h4>
 						<div class="code highlight">
 							
-<pre>
-curl -H "X-Emit: yes" --data "Hello World" http://public.hydna.net/1122556827/</pre>   
+							<pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/1122556827/</pre>   
 						</div>
 						
 						<p class="footer">
-							<!--<span class="prev">Introduction</span>-->
 							<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="#">Push API</a> examples</span>
-							<!--<span class="next">Terminology</span>-->
 						</p>
 						
 					</section>
@@ -145,14 +139,20 @@ curl -H "X-Emit: yes" --data "Hello World" http://public.hydna.net/1122556827/</
 						
 					   	<h3>PHP push example: <a href="https://github.com/hydna/hydna-php">https://github.com/hydna/hydna-php</a></h3>
 						<div class="code highlight">
-	    					<pre>require("hydna-push.php");
-$hydna = new Hydna(); 
+	    					<pre><span class="nb">require</span><span class="p">(</span><span class="s">&quot;hydna-push.php&quot;</span><span class="p">);</span>
 
-// send a message
-$hydna->push("http://public.hydna.net/1122556828", "Hello World from PHP");
+<span class="nv">$hydna</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hydna</span><span class="p">();</span> 
 
-// emit a signal
-$hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP");</pre>   
+<span class="n">try</span> <span class="p">{</span>
+	<span class="sr">//</span> <span class="nb">send</span> <span class="n">a</span> <span class="n">message</span>
+	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="nb">push</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/1122556828&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+
+	<span class="sr">//</span> <span class="n">emit</span> <span class="n">a</span> <span class="n">signal</span>
+	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/1122556828&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+	<span class="k">print</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span> 
+<span class="p">}</span></pre>
 </div>  				
 					</section>
 		
@@ -239,11 +239,20 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 				$('#swipe_id').hide();
 				
 				var channel = null;
+				var synctimer = null;
+				var closetimer = null;
+				var currentchannel = 0;
+				
 				var promptconnect = function(){
 					
 					var code = parseInt(prompt("Enter slideshow code", ""));
 					
-					if( !isNaN(code) && code > 1 ){
+					if( !isNaN(code) && code > 1 && code != currentchannel ){
+						
+						
+						if( channel ){
+							channel.close();
+						}
 						
 						var mychannel = String(code);
 						
@@ -256,6 +265,8 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 							switch( e.data ){
 								case "synced":
 								
+								clearTimeout(synctimer);
+								
 								$('#reconnect_id').hide();
 								$('#swipe_id').show();
 								$('#loader_id').hide();
@@ -266,30 +277,47 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 						}
 						
 						channel.onopen = function(e){
+							
+							clearTimeout( closetimer );
+							
+							currentchannel = code; 
+							
 							channel.send( mychannel );
+							
+							clearTimeout(synctimer);
+							synctimer = setTimeout( function(){
+								
+								$('#reconnect_id').show();
+								$('#loader_id').hide();
+								
+							}, 2000 );
 						}
 						
 						channel.onclose = function(e){
 							
-							$('#reconnect_id').show();
-							$('#swipe_id').hide();
+							clearTimeout( closetimer );
+							closetimer = setTimeout( function(){
+								$('#reconnect_id').show();
+								$('#swipe_id').hide();
+								$('#loader_id').hide();
+							}, 2000 );
 							
-							channel = null;
-							
-							promptconnect();
 						}
 						
 					}else{
 						if( code != "" ){
-							alert("Invalid channel");
+							if( code == currentchannel ){
+								alert("You are already connected to this channel");
+								channel.send( String(code) );
+							}else{
+								alert("Invalid channel");
+							}
 						}
 					}
 				};
 				
-				$('#reconnect_id').bind('touchend', function(e){
+				$('#reconnect_id').bind('touchstart', function(e){
 					e.preventDefault();
-					e.stopPropagation();
-					
 					promptconnect();
 				})
 				
@@ -313,7 +341,6 @@ $hydna->emit("http://public.hydna.net/1122556828", "Hello World signal from PHP"
 					
 					if( startx != currentx || starty != currenty ){
 						
-						// ok we didn't just tap
 						if( channel != null ){ 
 							
 							var dx = startx - currentx;

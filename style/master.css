@@ -962,6 +962,7 @@ html {
 }
 
 .mobile .loader{
+    display: block;
     width: 320px;
     height: 32px;
     background: url(../images/loader.gif) no-repeat center center;
@@ -1007,12 +1008,21 @@ p{
     font-size: 32px;
     line-height: 32px;
     font-weight: bold;
+    display: block;
+    
+    
 }
 
 .secret-code span{
-    border: 2px dashed #333;
-    padding: 10px 20px 10px 20px;
-    border-radius: 15px;
+    text-align: center;
+    display: inline-block;
+    padding: 16px 0 0 0;
+    width: 126px;
+    /*height: 68px;*/
+    height: 55px;
+    background: url(../images/phone.png) no-repeat 0 top;
+    text-indent: -13px;   
+    
     
 }
 
