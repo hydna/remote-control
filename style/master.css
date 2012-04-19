@@ -1013,13 +1013,17 @@ p{
     text-align: center;
     display: inline-block;
     padding: 16px 0 0 0;
-    width: 126px;
-    /*height: 68px;*/
     height: 55px;
+    width: 126px;
     background: url(../images/phone.png) no-repeat 0 top;
-    text-indent: -13px;   
-    
-    
+    text-indent: -13px;
+}
+
+@-moz-document url-prefix() {
+    .secret-code span{
+        padding: 20px 0 0 0;
+        height: 51px;
+    }
 }
 
 .code{
