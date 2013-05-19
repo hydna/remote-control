@@ -1,5 +1,4 @@
-<!DOCTYPE HTML>
-	<html>
+<!DOCTYPE html>
 	<head>
 		
 	<meta charset="utf-8">
@@ -11,10 +10,10 @@
 
 	<link rel="stylesheet" href="style/master.css">
 	
-	<!--<script type="text/javascript" src="http://use.typekit.com/rcl8zhz.js"></script>
-	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+
 	<script type="text/javascript" src="http://cdn.hydna.com/1/hydna.js"></script>
-	<script type="text/javascript" src="script/deps/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
 	
 	</head>
 	
@@ -28,12 +27,12 @@
 					<h2>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/client-libraries/">languages</a>. It works well in all major <a href="https://www.hydna.com/features/">browsers</a>, mobile apps, desktop apps, and on the server-side</a>.</h2>
 					
 					
-					<p>If you like you can control this slideshow with your phone, visit this page with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
+					<p>If you like you can control this slideshow through hydna with your phone, visit this page with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
 					
 					<p class="secret-code"><span id="secret_id">43525</span></p>
 					
 					<p class="note">slideshow code courtesy <a href="#">reveal.js</a></p>
-					
+                
 				</section>
 		        <section>
 		        	<section>
@@ -189,7 +188,9 @@
 		
 				<section>
                     
-					<h2>Check out some of our demo applications below and then get yourself a <a href="https://www.hydna.com/account/signup/">free account and start playing around</a></h2>
+                    <div class="mark"><img src="images/mark.png" /></div>
+                    
+					<h2>That's it! Now get crackin!</h2>
 					
 					
 					<h3>Demo applications: <a href="https://www.hydna.com/demos/">https://www.hydna.com/demos/</a></h3>
@@ -197,7 +198,10 @@
 					<h3>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></h3>
 					
 					<h3>Tutorials: <a href="https://www.hydna.com/documentation/tutorials/tutorials/">https://www.hydna.com/documentation/tutorials/tutorials/</a></h3>
-					
+                    
+                   
+                    
+					<a href="https://www.hydna.com/account/signup/" class="button signup">Create your free developer account</a>
 					
 		        </section>
 		    </div>
@@ -215,228 +219,7 @@
 		</div>
 		
 		<script src="script/deps/reveal.js"></script>
-		<script>
-			
-			if( navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1 ){           
-				
-				$('body').addClass( "mobile" );
-				
-				$('body').append("<div class='info'><span id='swipe_id'>Swipe to change slide</span><a href='#' id='reconnect_id'>Tap to Connect</a><span style='display: none;' id='loader_id' class='loader'></span></div>");
-				
-				$('#swipe_id').hide();
-				
-				var channel = null;
-				var synctimer = null;
-				var closetimer = null;
-				var currentchannel = 0;
-				
-				var promptconnect = function(){
-					
-					var code = parseInt(prompt("Enter slideshow code", ""));
-					
-					if( !isNaN(code) && code > 1 && code != currentchannel ){
-						
-						
-						if( channel ){
-							channel.close();
-						}
-						
-						var mychannel = String(code);
-						
-						$('#loader_id').show();
-						$('#reconnect_id').hide();
-						
-						channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
-						channel.onmessage = function(e) {
-							
-							switch( e.data ){
-								case "synced":
-								
-								clearTimeout(synctimer);
-								
-								$('#reconnect_id').hide();
-								$('#swipe_id').show();
-								$('#loader_id').hide();
-								
-								break;
-							}
-							
-						}
-						
-						channel.onopen = function(e){
-							
-							clearTimeout( closetimer );
-							
-							currentchannel = code; 
-							
-							channel.send( mychannel );
-							
-							clearTimeout(synctimer);
-							synctimer = setTimeout( function(){
-								
-								$('#reconnect_id').show();
-								$('#loader_id').hide();
-								
-							}, 2000 );
-						}
-						
-						channel.onclose = function(e){
-							
-							clearTimeout( closetimer );
-							closetimer = setTimeout( function(){
-								$('#reconnect_id').show();
-								$('#swipe_id').hide();
-								$('#loader_id').hide();
-							}, 2000 );
-							
-						}
-						
-					}else{
-						if( code != "" ){
-							if( code == currentchannel ){
-								alert("You are already connected to this channel");
-								channel.send( String(code) );
-							}else{
-								alert("Invalid channel");
-							}
-						}
-					}
-				};
-				
-				$('#reconnect_id').bind('touchstart', function(e){
-					e.preventDefault();
-					promptconnect();
-				})
-				
-				var startx = 0;
-				var starty = 0;
-				var currentx = 0;
-				var currenty = 0;
-				
-				$("body").bind("touchmove", function (event) {
-					var e = event.originalEvent;
-					
-					if( e.targetTouches[0] ){
-						currentx = e.targetTouches[0].pageX;
-						currenty = e.targetTouches[0].pageY;
-					}
-				
-					e.preventDefault();
-				});
-				
-				$("body").bind("touchend", function (event) {
-					
-					if( startx != currentx || starty != currenty ){
-						
-						if( channel != null ){ 
-							
-							var dx = startx - currentx;
-							var dy = starty - currenty;
-						
-							var angle = Math.atan2( dx, dy ) * (180/Math.PI);
-						
-							if( angle < 0 ){
-							
-								if( angle > -45 ){
-									channel.send("down");
-								}else if( angle < -135 ){
-									channel.send("up");
-								}else{
-									channel.send("left");
-								}
-							
-							}else{
-							
-								if( angle < 45 ){
-									channel.send("down");
-								}else if( angle > 135 ){
-									channel.send("up");
-								}else{
-									channel.send("right");
-								}
-							}
-						}   
-					}
-					
-				});
-				
-				$("body").bind("touchstart", function (event) { 
-					
-					var e = event.originalEvent;
-					if( e.targetTouches[0] ){
-						startx = e.targetTouches[0].pageX;
-						starty = e.targetTouches[0].pageY;
-						currentx = startx;
-						currenty = starty;
-					}
-					
-					e.preventDefault();
-				});
-				
-				promptconnect();
-				
-			}else{
-				
-				Reveal.initialize({
-					controls: true,
-					progress: true,
-					history: true,
-					mouseWheel: true,
-					rollingLinks: true,
-					theme: 'default',
-					transition: 'default'
-				});
-				
-				document.addEventListener( 'someState', function() {
-				    // TODO: Sprinkle magic
-					//console.log("state...");
-				}, false );
-			
-			
-				var mychannel = Math.round(Math.random() * 10000);
-				var channel = null;
-			
-				$("#secret_id").html( mychannel );
-				
-				var synced = false; 
-				var connect = function(){
-					
-					var channel = new HydnaChannel('skaggivara.hydna.net/'+mychannel, 'rw');
-					channel.onmessage = function(e) {
-						
-						if( parseInt(e.data) == mychannel ){
-							
-							synced = true;	
-							channel.send("synced");
-							
-						}else{
-							
-							if( synced ){
-							   	switch( e.data ){
-									case "left":
-										Reveal.navigateLeft();
-									break;
-									case "right":
-										Reveal.navigateRight();
-									break;
-									case "up":
-										Reveal.navigateUp();
-									break;
-									case "down":
-										Reveal.navigateDown();
-									break;
-									case "reset":
-									    Reveal.navigateTo(0,0);
-								   	break;
-								}
-							} 
-						}
-					}
-				}
-				
-				connect();
-			}
-			
-		</script>	
+        <script src="script/app.js"></script>
+        	
 	</body>	
 </html>
