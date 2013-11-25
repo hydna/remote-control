@@ -24,25 +24,25 @@
 		<div id="reveal">
 		    <div class="slides">
 				<section>
-					<h2>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/client-libraries/">languages</a>. It works well in all major <a href="https://www.hydna.com/features/">browsers</a>, mobile apps, desktop apps, and on the server-side</a>.</h2>
+					<h2>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/#client-libraries">languages</a>. It works well in all major browsers, mobile apps, desktop apps, and on the server-side</h2>
 					
 					
-					<p>If you like you can control this slideshow through hydna with your phone, visit this page with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
+                <p>If you like you can control this slideshow through hydna with your phone, visit this page <a href="http://bit.ly/18jEDRL">bit.ly/18jEDRL</a> with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
 					
-					<p class="secret-code"><span id="secret_id">43525</span></p>
+					<p class="secret-code"><span id="secret_id">0</span></p>
 					
-					<p class="note">slideshow code courtesy <a href="#">reveal.js</a></p>
+					<p class="note">slideshow code courtesy <a href="http://lab.hakim.se/reveal-js/">reveal.js</a></p>
                 
 				</section>
 		        <section>
 		        	<section>
-					<h2>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.com/forum/">chat</a> or a browser-based <a href="http://hydna.github.com/tartarus/">multiplayer-game</a>.</h2>
+					<h2>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.io/hydna-chat/">chat</a> or a browser-based <a href="http://hydna.github.io/tartarus/">multiplayer-game</a>.</h2>
 				   	<h3>A small javascript example:</h3>
 				
 					<div class="code highlight">
  					    <pre>
 <span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
-<span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/3617890511&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/hello-world&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
 
 <span class="c1">// register an event handler that alerts the data-part of messages when</span>
 <span class="c1">// they are received.</span>
@@ -68,21 +68,21 @@
 						
 						<h2>The Push API allows you to send messages and emit signals to channels without using a client library. It can also be used to build simple client libraries when you do not need the entire Hydna feature-set.</h2>
 
-						<h3>Push API: <a href="https://www.hydna.com/documentation/client-libraries/push/">https://www.hydna.com/documentation/client-libraries/push/</a></h3>
+						<h3>Push API: <a href="https://www.hydna.com/documentation/#push">https://www.hydna.com/documentation/#push</a></h3>
 						
 						<h4>Send message:</h4>
 						<div class="code highlight">
-							<pre>curl --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/1122556827/</pre>   
+							<pre>curl --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/hello-push</pre>   
 						</div>
 						
 						<h4>Emit signal:</h4>
 						<div class="code highlight">
 							
-							<pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/1122556827/</pre>   
+							<pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/hello-emit</pre>   
 						</div>
 						
 						<p class="footer">
-							<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="#">Push API</a> examples</span>
+							<span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="https://www.hydna.com/documentation/#push">Push API</a> examples</span>
 						</p>
 						
 					</section>
@@ -98,10 +98,10 @@
 	 					    <pre><span class="kn">import</span> <span class="nn">hydna</span>
 
 <span class="c1"># send a message</span>
-<span class="n">hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
 
 <span class="c1"># emit a signal</span>
-<span class="n">hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
+<span class="n">hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
 						</div>
 						
 						<h3>Ruby push example: <a href="https://github.com/hydna/hydna-ruby">https://github.com/hydna/hydna-ruby</a></h3>
@@ -110,14 +110,14 @@
 	 					    <pre><span class="kn">require</span> &#39;hydna&#39;
 
 <span class="c1"># send a message</span>
-<span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
 
 <span class="c1"># emit a signal</span>
-<span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/1122556827&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
+<span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
 						</div>
 						
 						<p class="footer">
-							<span class="down"><strong>PHP</strong> <a href="#">Push API</a> example</span>
+							<span class="down"><strong>PHP</strong> <a href="https://www.hydna.com/documentation/#push">Push API</a> example</span>
 						</p>
 						
 					</section>
@@ -136,10 +136,10 @@
 
 <span class="n">try</span> <span class="p">{</span>
 	<span class="sr">//</span> <span class="nb">send</span> <span class="n">a</span> <span class="n">message</span>
-	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="nb">push</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/1122556828&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="nb">push</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-push&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
 
 	<span class="sr">//</span> <span class="n">emit</span> <span class="n">a</span> <span class="n">signal</span>
-	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/1122556828&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-emit&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
 
 <span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">){</span>
 	<span class="k">print</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span> 
@@ -155,7 +155,7 @@
 
 						<li>When you sign up for a plan, you receive what is referred to as a <em>domain</em>. Domains are regular, fully qualified domain names, that are used to identify your own isolated instance(s) within Hydna.</li>
 							
-						<li>To send or receive messages over Hydna you open a channel on your domain. Each <em>channel</em> is identified by an integer in the range <em>1 - 4294967295</em>. You can think of channels much like their radio counterparts: programs transmitted on a channel are received by listeners tuned in to the same channel. Channels are cheap you can open several thousand on each client!</li>
+                        <li>To send or receive messages over Hydna you open a channel on your domain. Each <em>channel</em> is identified by a string like <em>/hello</em>. You can think of channels much like their radio counterparts: programs transmitted on a channel are received by listeners tuned in to the same channel. Channels are cheap you can open several thousand on each client!</li>
 						
 						<li>There are four different actions you can perform on a channel: <em>open</em>, <em>close</em>, send <em>message</em> and <em>emit</em> signal. You will receive events (or equivalent) when: messages or signals arrive, errors occur, and when a channel is closed.</li>
 						
@@ -182,7 +182,7 @@
 						<li>Connect to external services</li>
 					</ul>
 		            
-					<p>The concept is described in it's entirety in the section <a href="https://www.hydna.com/documentation/behaviors/">Behaviors</a>.</p>
+					<p>The concept is described in it's entirety in the section <a href="https://www.hydna.com/documentation/#behaviors">Behaviors</a>.</p>
 		
 		        </section>
 		
@@ -192,16 +192,13 @@
                     
 					<h2>That's it! Now get crackin!</h2>
 					
-					
-					<h3>Demo applications: <a href="https://www.hydna.com/demos/">https://www.hydna.com/demos/</a></h3>
+					<h3>Demo applications: <a href="https://www.hydna.com/demo/">https://www.hydna.com/demo/</a></h3>
 					
 					<h3>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></h3>
 					
-					<h3>Tutorials: <a href="https://www.hydna.com/documentation/tutorials/tutorials/">https://www.hydna.com/documentation/tutorials/tutorials/</a></h3>
+					<h3>Tutorials: <a href="https://www.hydna.com/documentation/#tutorials">https://www.hydna.com/documentation/#tutorials</a></h3>
                     
-                   
-                    
-					<a href="https://www.hydna.com/account/signup/" class="button signup">Create your free developer account</a>
+					<a href="https://www.hydna.com/account/create/" class="button signup">Create your free developer account</a>
 					
 		        </section>
 		    </div>
