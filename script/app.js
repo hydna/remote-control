@@ -1,16 +1,15 @@
 var remote = {
     
     domain: "remote-control.hydna.net",
-	channel: null,
-	synctimer: null,
-	closetimer: null,
-	currentchannel: 0,
+    channel: null,
+    synctimer: null,
+    closetimer: null,
+    currentchannel: 0,
     synced: false,
-    
+
     connect: function(mychannel){
         
-		remote.synced = false;
-
+        remote.synced = false;
         remote.channel = new HydnaChannel(remote.domain+'/'+mychannel, 'rw');
         remote.channel.onmessage = function(e){
 				
