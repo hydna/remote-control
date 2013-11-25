@@ -119,7 +119,6 @@ var remote = {
     init : function(){
         if(navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1){
             
-<<<<<<< HEAD
             $('body').addClass("mobile");
             
             $('body').append("<div class='info'><span id='swipe_id'>Swipe to change slide</span><a href='#' id='reconnect_id'>Tap to Connect</a><span style='display: none;' id='loader_id' class='loader'></span></div>");
