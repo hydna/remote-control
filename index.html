@@ -37,23 +37,24 @@
             <section>
                 <section>
                 <h2>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.io/hydna-chat/">chat</a> or a browser-based <a href="http://hydna.github.io/tartarus/">multiplayer-game</a>.</h2>
+
                 <h3>A small javascript example:</h3>
                 
                 <div class="code highlight">
                     <pre>
-                    <span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
-                    <span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/hello-world&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
+<span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
+<span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/hello-world&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
 
-                    <span class="c1">// register an event handler that alerts the data-part of messages when</span>
-                    <span class="c1">// they are received.</span>
-                    <span class="nx">channel</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-                    	<span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-                    <span class="p">};</span>
+<span class="c1">// register an event handler that alerts the data-part of messages when</span>
+<span class="c1">// they are received.</span>
+<span class="nx">channel</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">};</span>
 
-                    <span class="c1">// send a message immediately when the channel has been opened.</span>
-                    <span class="nx">channel</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                    	<span class="nx">channel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello there!&#39;</span><span class="p">);</span>
-                    <span class="p">};</span></pre>   
+<span class="c1">// send a message immediately when the channel has been opened.</span>
+<span class="nx">channel</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">channel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello there!&#39;</span><span class="p">);</span>
+<span class="p">};</span></pre>   
                 </div>
                 
                 <p class="footer">
@@ -72,12 +73,12 @@
                 <h4>Send message:</h4>
                 
                 <div class="code highlight">
-                    <pre>curl --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/hello-push</pre>   
+                    <pre>curl --data <span class="s2">&quot;hello world&quot;</span> http://public.hydna.net/hello-push</pre>   
                 </div>
                 
                 <h4>Emit signal:</h4>
                 <div class="code highlight">
-                    <pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;Hello World&quot;</span> http://public.hydna.net/hello-emit</pre>   
+                    <pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;hello emit&quot;</span> http://public.hydna.net/hello-emit</pre>   
                 </div>
                 
                 <p class="footer">
@@ -105,13 +106,13 @@
                 <h3>Ruby push example: <a href="https://github.com/hydna/hydna-ruby">https://github.com/hydna/hydna-ruby</a></h3>
                 
                 <div class="code highlight">
-                    <pre><span class="kn">require</span> &#39;hydna&#39;
+<pre><span class="kn">require</span> &#39;hydna&#39;
 
-                    <span class="c1"># send a message</span>
-                    <span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="c1"># send a message</span>
+<span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
 
-                    <span class="c1"># emit a signal</span>
-                    <span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
+<span class="c1"># emit a signal</span>
+<span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
                 </div>
                 
                 <p class="footer">
@@ -127,25 +128,25 @@
                 <h3>PHP push example: <a href="https://github.com/hydna/hydna-php">https://github.com/hydna/hydna-php</a></h3>
                 
                 <div class="code highlight">
-                    <pre><span class="nb">require</span><span class="p">(</span><span class="s">&quot;hydna-push.php&quot;</span><span class="p">);</span>
+<pre><span class="nb">require</span><span class="p">(</span><span class="s">&quot;hydna-push.php&quot;</span><span class="p">);</span>
 
-                    <span class="nv">$hydna</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hydna</span><span class="p">();</span> 
+<span class="nv">$hydna</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hydna</span><span class="p">();</span> 
 
-                    <span class="n">try</span> <span class="p">{</span>
-                    	<span class="sr">//</span> <span class="nb">send</span> <span class="n">a</span> <span class="n">message</span>
-                    	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="nb">push</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-push&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+<span class="n">try</span> <span class="p">{</span>
+    <span class="sr">//</span> <span class="nb">send</span> <span class="n">a</span> <span class="n">message</span>
+    <span class="nv">$hydna</span><span class="o">-&gt;</span><span class="nb">push</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-push&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
 
-                    	<span class="sr">//</span> <span class="n">emit</span> <span class="n">a</span> <span class="n">signal</span>
-                    	<span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-emit&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+    <span class="sr">//</span> <span class="n">emit</span> <span class="n">a</span> <span class="n">signal</span>
+    <span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-emit&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
 
-                    <span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">){</span>
-                    	<span class="k">print</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span> 
-                    <span class="p">}</span></pre>
+<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+    <span class="k">print</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span> 
+<span class="p">}</span></pre>
                 </div>
                 </section>
             </section>
             <section>
-                <h2>A few terms you should familiarize yourself with, to featherbed further venturing:</h2>
+                <h2>A few terms you should familiarize yourself with:</h2>
                 
                 <ul>
                     <li>When you sign up for a plan, you receive what is referred to as a <em>domain</em>. Domains are regular, fully qualified domain names, that are used to identify your own isolated instance(s) within Hydna.</li>
