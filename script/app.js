@@ -1,5 +1,4 @@
 var remote = {
-    
     domain: "remote-control.hydna.net",
     channel: null,
     synctimer: null,

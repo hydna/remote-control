@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <head>
-        
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    
     <meta name="viewport" content="user-scalable=no, width=device-width" />
     
     <title>Remote Control Demo</title>
     
     <link rel="stylesheet" href="style/master.css">
-    
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-    
+
     <script type="text/javascript" src="http://cdn.hydna.com/1/hydna.js"></script>
-    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
-    
 </head>
 
 <body>
-    
-    <h3 class="logo"><a href="http://www.hydna.com/" title="hydna"><img src="images/logo.png"></a></h3>
-    
-    <div id="reveal">
+    <a href="http://www.hydna.com/" title="hydna" class="logo"><img src="images/logo.png"></a>
+
+    <div class="reveal">
         <div class="slides">
             <section>
-                <h2>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/#client-libraries">languages</a>. It works well in all major browsers, mobile apps, desktop apps, and on the server-side</h2>
-                
-                <p>If you like you can control this slideshow through hydna with your phone, visit this page <a href="http://bit.ly/18jEDRL">bit.ly/18jEDRL</a> with your <strong>IOS</strong> or <strong>Android</strong> phone and enter the following code »</p>
+                <h1>Hydna: a scalable real-time platform</h1>
+
+                <p>To <strong>control the slideshow through Hydna</strong> with your <strong>iOS</strong> or <strong>Android</strong> phone, visit <a href="http://bit.ly/18jEDRL">bit.ly/18jEDRL</a> and enter the following code:</p>
                 
                 <p class="secret-code"><span id="secret_id">0</span></p>
                 
-                <p class="note">slideshow code courtesy <a href="http://lab.hakim.se/reveal-js/">reveal.js</a></p>
-                
+                <p class="note">Slideshow code courtesy of <a href="http://lab.hakim.se/reveal-js/">reveal.js</a>.</p>
+            </section>
+            <section>
+                <h2>What is Hydna?</h2>
+                <p>Hydna is a hosted platform that takes the pain out of building real-time-enabled websites and applications. We provide client libraries for several <a href="https://www.hydna.com/documentation/#client-libraries">languages</a>. It works well in all major browsers, mobile apps, desktop apps, and on the server-side</p>
+            </section>
+            <section>
+                <h2>What you can dow with Hydna</h2>
+                <p>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.io/hydna-chat/">chat</a> or a browser-based <a href="http://hydna.github.io/tartarus/">multiplayer-game</a>.</p>
             </section>
             <section>
                 <section>
-                <h2>At it's core, Hydna is about immediate, bi-directional transmission of data between clients. In the context of a web site, you could make it possible for visitors of a page to communicate with each other instantly, without the need to reload said page; like in a <a href="http://hydna.github.io/hydna-chat/">chat</a> or a browser-based <a href="http://hydna.github.io/tartarus/">multiplayer-game</a>.</h2>
-
-                <h3>A small javascript example:</h3>
+                    <h2>What Hydna looks like</h2>
+                    <p>A small javascript example:</p>
                 
-                <div class="code highlight">
-                    <pre>
+<div class="code highlight"><pre>
 <span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
 <span class="kd">var</span> <span class="nx">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HydnaChannel</span><span class="p">(</span><span class="s1">&#39;public.hydna.net/hello-world&#39;</span><span class="p">,</span> <span class="s1">&#39;rw&#39;</span><span class="p">);</span>
 
@@ -54,8 +53,7 @@
 <span class="c1">// send a message immediately when the channel has been opened.</span>
 <span class="nx">channel</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">channel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello there!&#39;</span><span class="p">);</span>
-<span class="p">};</span></pre>   
-                </div>
+<span class="p">};</span></pre></div>
                 
                 <p class="footer">
                     <span class="down">Hydna <strong>Push API</strong></a> examples</span>
@@ -65,20 +63,15 @@
                 <p class="header">
                     <span class="up"><strong>Javascript</strong> example</span>
                 </p>
-                
-                <h2>The Push API allows you to send messages and emit signals to channels without using a client library. It can also be used to build simple client libraries when you do not need the entire Hydna feature-set.</h2>
 
-                <h3>Push API: <a href="https://www.hydna.com/documentation/#push">https://www.hydna.com/documentation/#push</a></h3>
+                <h2>Push API</h2>
                 
-                <h4>Send message:</h4>
+                <p>The Push API allows you to send messages and emit signals without using a client library. It can also be used to build simple client libraries when you do not need the entire Hydna feature-set.</p>
+
+                <h4>Sending messages:</h4>
                 
                 <div class="code highlight">
                     <pre>curl --data <span class="s2">&quot;hello world&quot;</span> http://public.hydna.net/hello-push</pre>   
-                </div>
-                
-                <h4>Emit signal:</h4>
-                <div class="code highlight">
-                    <pre>curl -H <span class="s2">&quot;X-Emit: yes&quot;</span> --data <span class="s2">&quot;hello emit&quot;</span> http://public.hydna.net/hello-emit</pre>   
                 </div>
                 
                 <p class="footer">
@@ -92,7 +85,9 @@
                     <span class="up"><strong>Push API</strong> example</span>
                 </p>
                 
-                <h3>Python push example: <a href="https://github.com/hydna/hydna-python">https://github.com/hydna/hydna-python</a></h3>
+                <h2>Python push</h2>
+
+                <p>Full documentation: <a href="https://github.com/hydna/hydna-python">https://github.com/hydna/hydna-python</a></p>
                 
                 <div class="code highlight">
                     <pre><span class="kn">import</span> <span class="nn">hydna</span>
@@ -102,6 +97,9 @@
 <span class="c1"># emit a signal</span>
 <span class="n">hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
                 </div>
+
+                </section>
+                <section>
                 
                 <h3>Ruby push example: <a href="https://github.com/hydna/hydna-ruby">https://github.com/hydna/hydna-ruby</a></h3>
                 
@@ -186,30 +184,15 @@
                 <h2>That's it! Now get crackin!</h2>
                 
                 <h3>Demo applications: <a href="https://www.hydna.com/demo/">https://www.hydna.com/demo/</a></h3>
-                
                 <h3>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></h3>
-                
                 <h3>Tutorials: <a href="https://www.hydna.com/documentation/#tutorials">https://www.hydna.com/documentation/#tutorials</a></h3>
                 
                 <a href="https://www.hydna.com/account/create/" class="button signup">Create your free developer account</a>
-                
             </section>
         </div>
-        
-        <!-- The navigational controls UI -->
-        <aside class="controls">
-            <a class="left" href="#">&#x25C4;</a>
-            <a class="right" href="#">&#x25BA;</a>
-            <a class="up" href="#">&#x25B2;</a>
-            <a class="down" href="#">&#x25BC;</a>
-        </aside>
-        
-        <div class="progress"><span></span></div>  
-        
     </div>
     
     <script src="script/deps/reveal.js"></script>
     <script src="script/app.js"></script>
-    
 </body>
 </html>
