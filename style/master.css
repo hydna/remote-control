@@ -255,6 +255,14 @@ body {
  * SECRET CODE
  *********************************************/
 
+.reveal .control-details {
+    margin: 40px auto;
+}
+
+.reveal .control-details p {
+    font-size: 80%;
+}
+
 .reveal p.secret-code {
     display: block;
     font-size: 32px;
@@ -265,6 +273,7 @@ body {
     font-weight: 700;
     text-indent: -13px;
     background: url(../images/phone.png) no-repeat 0 top;
+    color: #FFF;
 }
 
 /*********************************************
