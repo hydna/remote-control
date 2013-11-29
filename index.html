@@ -57,12 +57,6 @@
 
             </section>
             <section>
-                <h2>1.1 Client libraries</h2>
-                <p>Client libraries detect and select best available transport.</p>
-                <p>JavaScript, Node.js, Erlang, Java, Objective-C, C++</p>
-                <p>Python, PHP, Ruby, Go etc.</p>
-            </section>
-            <section>
                 <h2>2. Routing</h2>
 
                 <p>Routing is the act of accepting data from a sender and delivering it to the intended recipients. Routing works across transports.</p>
@@ -78,16 +72,20 @@
                 <p>Behaviors are small snippets of JavaScript that you deploy to Hydna's infrastructure. They are used to instruct Hydna how to behave when clients perform different actions (open channels, emit signals etc).</p>
                 <p>Authentication, communication with external services, cahing data etc</p>
             </section>
-
             <section>
                 <h2>What can you do with Hydna?</h2>
                 <p>Hydna is ideal for building dashboards, activity streams, notification- and chat systems, real-time collaboration, live statistics, remote controls, multiplayer games, and more.</p>
             </section>
-
+            <section>
+                <h2>Client libraries</h2>
+                <p>Client libraries detect and select best available transport.</p>
+                <p>JavaScript, Node.js, Erlang, Java, Objective-C, C++</p>
+                <p>Python, PHP, Ruby, Go etc.</p>
+            </section>
             <section>
                 <section>
-                    <h2>Examples</h2>
-                    <p>A small javascript example:</p>
+                    <h2>Client libraries - Examples</h2>
+                    <h3>JavaScript</h3>
                 
 <div class="code highlight"><pre>
 <span class="c1">// open a channel on the domain `public.hydna.net` in read and write mode.</span>
@@ -104,42 +102,31 @@
     <span class="nx">channel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello there!&#39;</span><span class="p">);</span>
 <span class="p">};</span></pre></div>
                 
-                <p class="footer">
-                    <span class="down">Hydna <strong>Push API</strong></a> examples</span>
-                </p>
+                    <p class="footer"><span class="navigate-down enabled">Hydna <strong>Push API</strong></a> example</span></p>
                 </section>
                 <section>
-                <p class="header">
-                    <span class="up"><strong>Javascript</strong> example</span>
-                </p>
+                    <p class="header"><span class="navigate-up enabled"><strong>Javascript</strong> example</span></p>
 
-                <h2>Push API</h2>
-                
-                <p>The Push API allows you to send messages and emit signals without using a client library. It can also be used to build simple client libraries when you do not need the entire Hydna feature-set.</p>
-
-                <h4>Sending messages:</h4>
-                
-                <div class="code highlight">
-                    <pre>curl --data <span class="s2">&quot;hello world&quot;</span> http://public.hydna.net/hello-push</pre>   
-                </div>
-                
-                <p class="footer">
-                    <span class="down"><strong>Python</strong>, <strong>Ruby</strong> and </strong><strong>PHP</strong> <a href="https://www.hydna.com/documentation/#push">Push API</a> examples</span>
-                </p>
-                
+                    <h2>Push API</h2>
+                    
+                    <p>Simple HTTP interface. Limited to sending messages and emitting signals. Does not require a client library. Example using <em>curl</em>:</p>
+                    
+                    <div class="code highlight">
+                        <pre>curl --data <span class="s2">&quot;hello world&quot;</span> http://public.hydna.net/hello-push</pre>   
+                    </div>
+                    
+                    <p class="footer">
+                        <span class="navigate-down enabled"><strong>Python</strong>  example</span>
+                    </p>
                 </section>
                 <section>
+                    <p class="header"><span class="navigate-up enabled"><strong>Push API</strong> example</span></p>
+                    
+                    <h2>Python (push) lib</h2>
+                    <p>Full documentation on <a href="https://github.com/hydna/hydna-python">GitHub</a></p>
                 
-                <p class="header">
-                    <span class="up"><strong>Push API</strong> example</span>
-                </p>
-                
-                <h2>Python push</h2>
+<div class="code highlight"><pre><span class="kn">import</span> <span class="nn">hydna</span>
 
-                <p>Full documentation: <a href="https://github.com/hydna/hydna-python">https://github.com/hydna/hydna-python</a></p>
-                
-                <div class="code highlight">
-                    <pre><span class="kn">import</span> <span class="nn">hydna</span>
 <span class="c1"># send a message</span>
 <span class="n">hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
 
@@ -147,13 +134,14 @@
 <span class="n">hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
                 </div>
 
+                    <p class="footer"><span class="navigate-down enabled"><strong>Ruby</strong> example</span></p>
                 </section>
                 <section>
+                    <p class="header"><span class="navigate-up enabled"><strong>Python</strong> example</span></p>
+                    <h2>Ruby (push) lib</h2>
+                    <p>Full documentation on <a href="https://github.com/hydna/hydna-ruby">GitHub</a></p>
                 
-                <h3>Ruby push example: <a href="https://github.com/hydna/hydna-ruby">https://github.com/hydna/hydna-ruby</a></h3>
-                
-                <div class="code highlight">
-<pre><span class="kn">require</span> &#39;hydna&#39;
+<div class="code highlight"><pre><span class="kn">require</span> &#39;hydna&#39;
 
 <span class="c1"># send a message</span>
 <span class="n">Hydna</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-push&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
@@ -162,17 +150,13 @@
 <span class="n">Hydna</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#39;public.hydna.net/hello-emit&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span></pre>   
                 </div>
                 
-                <p class="footer">
-                    <span class="down"><strong>PHP</strong> <a href="https://www.hydna.com/documentation/#push">Push API</a> example</span>
-                </p>
-                
+                    <p class="footer"><span class="navigate-down enabled"><strong>PHP</strong> example</span></p>
                 </section>
                 <section>
-                <p class="header">
-                    <span class="up"><strong>Python</strong>, <strong>Ruby</strong> <a href="#">Push API</a> examples</span>
-                </p>
+                    <p class="header"><span class="navigate-up enabled"><strong>Ruby</strong> example</span></p>
                 
-                <h3>PHP push example: <a href="https://github.com/hydna/hydna-php">https://github.com/hydna/hydna-php</a></h3>
+                    <h2>PHP (push) lib</h2>
+                    <p>Full documentation on <a href="https://github.com/hydna/hydna-php">GitHub</a></p>
                 
                 <div class="code highlight">
 <pre><span class="nb">require</span><span class="p">(</span><span class="s">&quot;hydna-push.php&quot;</span><span class="p">);</span>
@@ -186,23 +170,40 @@
     <span class="sr">//</span> <span class="n">emit</span> <span class="n">a</span> <span class="n">signal</span>
     <span class="nv">$hydna</span><span class="o">-&gt;</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;http://public.hydna.net/hello-emit&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
 
-<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">Exception</span> <span class="nv">$e</span><span class="p">) {</span>
     <span class="k">print</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="n">getMessage</span><span class="p">();</span> 
 <span class="p">}</span></pre>
                 </div>
                 </section>
             </section>
             <section>
-                    
+                <h2>Behaviors - Examples</h2>
+                <h3>Simple authentication</h3>
+<div class="highlight"><pre><span class="nx">behavior</span><span class="p">(</span><span class="s1">'/admin'</span><span class="p">,</span> <span class="p">{</span> 
+    <span class="nx">open</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">write</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// the client requested to write to the channel. let's examine</span>
+            <span class="c1">// whether the token matches the secret password.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">token</span> <span class="o">!=</span> <span class="s1">'secret password'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">deny</span><span class="p">(</span><span class="s1">'Not allowed to write to channel.'</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">allow</span><span class="p">(</span><span class="s1">'Allowed to write to channel.'</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// the client did not request to write, we can allow that</span>
+            <span class="c1">// without looking at the token.</span>
+            <span class="nx">event</span><span class="p">.</span><span class="nx">allow</span><span class="p">(</span><span class="s1">'Allowed to read from channel.'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+            </section>
+            <section>
                 <div class="mark"><img src="images/mark.png" /></div>
                     
-                <h2>That's it! Now get crackin!</h2>
+                <h2>That's it! Now get cracking!</h2>
                 
-                <ul>
-                    <li>Demo applications: <a href="https://www.hydna.com/demo/">https://www.hydna.com/demo/</a></li>
-                    <li>Documentation: <a href="https://www.hydna.com/documentation/">https://www.hydna.com/documentation/</a></li>
-                    <li>Tutorials: <a href="https://www.hydna.com/documentation/#tutorials">https://www.hydna.com/documentation/#tutorials</a></li>
-                </ul>
+               <p><a href="https://www.hydna.com/demo/">Demo applications</a> / <a href="https://www.hydna.com/documentation/">Documentation</a> / <a href="https://www.hydna.com/documentation/#tutorials">Tutorials</a></p>
                 
                 <div class="create-account">
                     <a href="https://www.hydna.com/account/create/" class="button signup">Create your free developer account</a>

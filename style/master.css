@@ -160,10 +160,10 @@ body {
     margin-top: 30px;
 }
 
-.reveal a.button{
-    padding: 10px 20px;
+.reveal a.button {
+    padding: 15px 30px;
     display: inline-block;
-    font-size: 20px;
+    font-size: 24px;
     border-radius: 3px;
     text-decoration: none;
     line-height: normal;
@@ -174,13 +174,16 @@ body {
     color: #fff;
     background: #54524d;
     background: -moz-linear-gradient(top, #6a6661 0%, #54524d 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6a6661), color-stop(1
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6a6661), color-stop(100%, #54524d));
     background: -webkit-linear-gradient(top, #6a6661 0%, #54524d 100%);
     background: -o-linear-gradient(top, #6a6661 0%, #54524d 100%);
     background: -ms-linear-gradient(top, #6a6661 0%, #54524d 100%);
     background: linear-gradient(to bottom, #6a6661 0%, #54524d 100%);
 }
 
+.reveal .mark {
+    margin-bottom: 30px;
+}
 
 /*********************************************
  * VERTICAL NAVIGATION
@@ -209,73 +212,22 @@ body {
     font-weight: bold;
 }
 
-.header span.down,
-.footer span.down{
+.header span.navigate-down,
+.footer span.navigate-down {
     margin: 0;
     padding: 0 0 30px 0;
     background: url(../images/arrow_down.png) no-repeat center bottom; 
+    cursor: pointer;
 }
 
-.header span.up,
-.footer span.up{
+.header span.navigate-up,
+.footer span.navigate-up {
     display: block;
     margin: 0;
     padding: 25px 0 0 0;
     background: url(../images/arrow_up.png) no-repeat center top; 
+    cursor: pointer;
 }
-
-
-/*********************************************
- * CONTROLS
- *********************************************/
-
-
-
-.reveal .controls {
-	display: none;
-	position: fixed;
-	width: 90px;
-	height: 95px;
-	right: 10px;
-	bottom: 10px;
-}
-	
-.reveal .controls a {
-    text-decoration: none;
-	font-size: 30px;
-	position: absolute;
-	opacity: 0.1;
-	color: #fff;
-}   
-
-.reveal .controls a.enabled {
-	opacity: 0.6;
-    color: #fff;
-    opacity: 0.5;
-	text-shadow: 0px 0px 2px hsla(185, 45%, 70%, 0.3);
-}
-
-.reveal .controls a.enabled:active {
-	margin-top: 1px;
-}  
-
-.reveal .controls .left {
-	top: 30px;
-}
-
-.reveal .controls .right {
-	left: 60px;
-	top: 30px;
-}
-
-.reveal .controls .up {
-	left: 30px;
-}
-
-.reveal .controls .down {
-	left: 30px;
-	top: 60px;
-} 
 
 /*********************************************
  * SECRET CODE
@@ -289,7 +241,7 @@ body {
     font-size: 80%;
 }
 
-.reveal p.secret-code {
+.reveal .control-details p.secret-code {
     display: block;
     font-size: 32px;
     line-height: 68px;
