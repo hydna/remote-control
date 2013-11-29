@@ -234,7 +234,6 @@ body {
 }
 
 .mobile {
-    background: none;
     min-height: 0;
 }
 
@@ -245,6 +244,16 @@ body {
     left: 0;
     top: 125px;
 }
+
+.mobile .info .command-sent {
+    margin-top: 30px;
+    font-size: 80%;
+}
+
+/* .mobile .info .command-sent.up { background-image: url(../images/arrow_up.png); } */
+/* .mobile .info .command-sent.left { background-image: url(../images/arrow_left.png); } */
+/* .mobile .info .command-sent.right { background-image: url(../images/arrow_right.png); } */
+/* .mobile .info .command-sent.down { background-image: url(../images/arrow_down.png); } */
 
 .mobile .loader {
     display: block;

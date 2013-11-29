@@ -97,6 +97,13 @@ var remote = {
             }
         }
     },
+
+    navigate: function(direction) {
+        var el = $('<div class="command-sent ' + direction + '">' + direction + '</div>');
+        $('body .info').append(el);
+        setTimeout(function() { el.fadeOut(100) }, 200);
+        remote.channel.send(direction);
+    },
     
     init : function() {
         if (navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1) {
@@ -140,20 +147,20 @@ var remote = {
                         if (angle < 0){
                             
                             if (angle > -45){
-                                remote.channel.send("down");
+                                remote.navigate('down');
                             } else if (angle < -135){
-                                remote.channel.send("up");
+                                remote.navigate('up');
                             } else {
-                                remote.channel.send("left");
+                                remote.navigate('left');
                             }
                         
                         } else {
                             if (angle < 45) {
-                                remote.channel.send("down");
+                                remote.navigate('down');
                             } else if (angle > 135) {
-                                remote.channel.send("up");
+                                remote.navigate('up');
                             } else {
-                                remote.channel.send("right");
+                                remote.navigate('right');
                             }
                         }
                     }   
