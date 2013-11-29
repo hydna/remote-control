@@ -92,26 +92,8 @@ body {
 	font-weight: bold;
 }
 
-.reveal em, 
-.reveal i {
-	/*font-style: italic;*/
-}
-
-.reveal ol, 
-.reveal ul {
-	display: inline-block;
-
-	text-align: left;
-	margin: 0 auto;
-}
-
-.reveal ol {
-	list-style: decimal;
-	list-style-position: inside;
-}
-
-.reveal ul {
-	list-style: disc;
+.reveal li {
+    margin-bottom: 15px;
 }
 
 .reveal blockquote {
