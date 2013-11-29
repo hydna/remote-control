@@ -96,43 +96,6 @@ body {
     margin-bottom: 15px;
 }
 
-.reveal blockquote {
-	display: block;
-	position: relative;
-	width: 70%;
-	margin: 5px auto;
-	padding: 5px;
-	
-	font-style: italic;
-	background: rgba(255, 255, 255, 0.05);
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.2);
-}
-
-.reveal blockquote:before {
-	content: '“';
-}
-
-.reveal blockquote:after {
-	content: '”';
-} 
-
-
-.reveal small {
-	font-size: 60%;
-	line-height: 1em;
-	vertical-align: top;
-}
-
-.reveal q {	
-	font-style: italic;
-}
-.reveal q:before {
-	content: '“';
-}
-.reveal q:after {
-	content: '”';
-}
-
 .reveal a:not(.image) {
     font-family: "Droid Sans", helvetica, arial, sans-serif;
     color: #FF5943;
@@ -154,6 +117,7 @@ body {
 
 .reveal pre {
     padding: 20px;
+    box-shadow: none;
 }
 
 .reveal .create-account {
