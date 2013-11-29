@@ -225,3 +225,39 @@ body {
 .reveal .progress span {
 	background: #e63b3c;
 } 
+
+/*********************************************
+ * REMOTE
+ *********************************************/
+
+.mobile .reveal {
+    display: none;
+}
+
+.mobile {
+    background: none;
+    min-height: 0;
+}
+
+.mobile .info {  
+    text-align: center;
+    position: absolute;
+    width: 320px;
+    left: 0;
+    top: 125px;
+}
+
+.mobile .loader {
+    display: block;
+    width: 320px;
+    height: 32px;
+    background: url(../images/loader.gif) no-repeat center center;
+}
+
+.mobile .info a {
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px 15px 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+}
