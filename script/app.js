@@ -5,6 +5,7 @@ var remote = {
     closetimer: null,
     currentchannel: 0,
     synced: false,
+    sensitivity: 5,
     
     connect: function(mychannel) {
         remote.synced = false;
@@ -122,26 +123,21 @@ var remote = {
             var starty = 0;
             var currentx = 0;
             var currenty = 0;
-            
+            var hasmoved = false;
+
             $("body").bind("touchmove", function(event) {
                 var e = event.originalEvent;
                 
                 if( e.targetTouches[0] ){
                     currentx = e.targetTouches[0].pageX;
                     currenty = e.targetTouches[0].pageY;
-                }
-                
-                e.preventDefault();
-            });
-            
-            $("body").bind("touchend", function(event) {
-                if (startx != currentx || starty != currenty) {
                     
-                    if (remote.channel != null) { 
-                        
-                        var dx = startx - currentx;
-                        var dy = starty - currenty;
-                        
+                    var dx = startx - currentx;
+                    var dy = starty - currenty;
+
+                    var dist = Math.sqrt( dx * dx + dy * dy);
+
+                    if(dist > remote.sensitivity && hasmoved == false){
                         var angle = Math.atan2(dx, dy) * (180/Math.PI);
                         
                         if (angle < 0){
@@ -153,6 +149,8 @@ var remote = {
                             } else {
                                 remote.navigate('left');
                             }
+
+                            hasmoved = true;
                         
                         } else {
                             if (angle < 45) {
@@ -162,9 +160,17 @@ var remote = {
                             } else {
                                 remote.navigate('right');
                             }
-                        }
-                    }   
+
+                            hasmoved = true;
+                        }   
+                    }
                 }
+                
+                e.preventDefault();
+            });
+            
+            $("body").bind("touchend", function(event) {
+                hasmoved = false;
             });
             
             $("body").bind("touchstart", function(event) {
