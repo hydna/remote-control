@@ -1,5 +1,4 @@
 var remote = {
-    
     domain: "remote-control.hydna.net",
     
     channel: null,
@@ -8,22 +7,18 @@ var remote = {
     currentchannel: 0,
     
     synced: false,
+    sensitivity: 5,
     
-    connect: function(mychannel){
-        
+    connect: function(mychannel) {
         remote.synced = false;
         remote.channel = new HydnaChannel(remote.domain+'/'+mychannel, 'rw');
-        remote.channel.onmessage = function(e){
-            
-            if(parseInt(e.data) == mychannel){
-                
+        remote.channel.onmessage = function(e) {
+            if (parseInt(e.data) == mychannel) {
                 remote.synced = true;	
                 remote.channel.send("synced");
-                
-            }else{
-                
-                if(remote.synced){
-                    switch(e.data){
+            } else {
+                if (remote.synced) {
+                    switch(e.data) {
                         case "left":
                             Reveal.navigateLeft();
                             break;
@@ -45,12 +40,11 @@ var remote = {
         }
     },
     
-    promptconnect: function(){
-        
+    promptconnect: function() {
         var code = parseInt(prompt("Enter slideshow code", ""));
         
-        if(!isNaN(code) && code > 1 && code != remote.currentchannel){
-            if(remote.channel){
+        if (!isNaN(code) && code > 1 && code != remote.currentchannel) {
+            if (remote.channel) {
                 remote.channel.close();
             }
             
@@ -63,69 +57,66 @@ var remote = {
             remote.channel = new HydnaChannel(remote.domain+'/'+mychannel, 'rw');
             
             remote.channel.onmessage = function(e) {
-                
-                switch(e.data){
+                switch(e.data) {
                     case "synced":
                         clearTimeout(remote.synctimer);
                         $('#reconnect_id').hide();
                         $('#swipe_id').show();
                         $('#loader_id').hide();
-                        
                         break;
                 }
-                
             }
             
-            remote.channel.onopen = function(e){
-                
+            remote.channel.onopen = function(e) {
                 clearTimeout(remote.closetimer);
                 
                 remote.currentchannel = code; 
-                
                 remote.channel.send(mychannel);
                 
                 clearTimeout(remote.synctimer);
-                remote.synctimer = setTimeout( function(){
-                    
+                remote.synctimer = setTimeout( function() {
                     $('#reconnect_id').show();
                     $('#loader_id').hide();
-                    
                 }, 2000);
             }
             
-            remote.channel.onclose = function(e){
-                
+            remote.channel.onclose = function(e) {
                 clearTimeout(remote.closetimer);
-                remote.closetimer = setTimeout( function(){
+                remote.closetimer = setTimeout( function() {
                     $('#reconnect_id').show();
                     $('#swipe_id').hide();
                     $('#loader_id').hide();
                 }, 2000);
-                
             }
         
-        }else{
-            if(code != ""){
-                if(code == remote.currentchannel){
+        } else {
+            if(code != "") {
+                if (code == remote.currentchannel) {
                     alert("You are already connected to this channel");
                     remote.channel.send(String(code));
-                }else{
+                } else {
                     alert("Invalid channel");
                 }
             }
         }
     },
+
+    navigate: function(direction) {
+        var el = $('<div class="command-sent ' + direction + '">' + direction + '</div>');
+        $('body .info').append(el);
+        setTimeout(function() { el.fadeOut(100) }, 200);
+        remote.channel.send(direction);
+    },
     
-    init : function(){
-        if(navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1){
-            
+    init : function() {
+        if (navigator.userAgent.indexOf('iPhone') != -1 || navigator.userAgent.indexOf('iPod') != -1 || navigator.userAgent.indexOf('Android') != -1) {
             $('body').addClass("mobile");
             
             $('body').append("<div class='info'><span id='swipe_id'>Swipe to change slide</span><a href='#' id='reconnect_id'>Tap to Connect</a><span style='display: none;' id='loader_id' class='loader'></span></div>");
             
             $('#swipe_id').hide();
             
-            $('#reconnect_id').bind('touchstart', function(e){
+            $('#reconnect_id').bind('touchstart', function(e) {
                 e.preventDefault();
                 remote.promptconnect();
             });
@@ -134,55 +125,57 @@ var remote = {
             var starty = 0;
             var currentx = 0;
             var currenty = 0;
-            
-            $("body").bind("touchmove", function(event){
+            var hasmoved = false;
+
+            $("body").bind("touchmove", function(event) {
                 var e = event.originalEvent;
                 
                 if( e.targetTouches[0] ){
                     currentx = e.targetTouches[0].pageX;
                     currenty = e.targetTouches[0].pageY;
+                    
+                    var dx = startx - currentx;
+                    var dy = starty - currenty;
+
+                    var dist = Math.sqrt( dx * dx + dy * dy);
+
+                    if(dist > remote.sensitivity && hasmoved == false){
+                        var angle = Math.atan2(dx, dy) * (180/Math.PI);
+                        
+                        if (angle < 0){
+                            
+                            if (angle > -45){
+                                remote.navigate('down');
+                            } else if (angle < -135){
+                                remote.navigate('up');
+                            } else {
+                                remote.navigate('left');
+                            }
+
+                            hasmoved = true;
+                        
+                        } else {
+                            if (angle < 45) {
+                                remote.navigate('down');
+                            } else if (angle > 135) {
+                                remote.navigate('up');
+                            } else {
+                                remote.navigate('right');
+                            }
+
+                            hasmoved = true;
+                        }   
+                    }
                 }
                 
                 e.preventDefault();
             });
             
-            $("body").bind("touchend", function(event){
-                
-                if(startx != currentx || starty != currenty){
-                    
-                    if(remote.channel != null){ 
-                        
-                        var dx = startx - currentx;
-                        var dy = starty - currenty;
-                        
-                        var angle = Math.atan2(dx, dy) * (180/Math.PI);
-                        
-                        if(angle < 0){
-                            
-                            if(angle > -45){
-                                remote.channel.send("down");
-                            }else if(angle < -135){
-                                remote.channel.send("up");
-                            }else{
-                                remote.channel.send("left");
-                            }
-                        
-                        }else{
-                            
-                            if(angle < 45){
-                                remote.channel.send("down");
-                            }else if(angle > 135){
-                                remote.channel.send("up");
-                            }else{
-                                remote.channel.send("right");
-                            }
-                        }
-                    }   
-                }
+            $("body").bind("touchend", function(event) {
+                hasmoved = false;
             });
             
-            $("body").bind("touchstart", function(event){
-                
+            $("body").bind("touchstart", function(event) {
                 var e = event.originalEvent;
                 if(e.targetTouches[0]){
                     startx = e.targetTouches[0].pageX;
@@ -195,9 +188,7 @@ var remote = {
             });
             
             remote.promptconnect();
-            
-        }else{
-            
+        } else {
             Reveal.initialize({
                 controls: true,
                 progress: true,
@@ -219,7 +210,5 @@ var remote = {
 };
 
 $(document).ready(function(){
-    
     remote.init();
-
 });
